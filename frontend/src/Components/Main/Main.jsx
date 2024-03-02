@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { FaArrowUp } from "react-icons/fa";
 import Query from '../Query/Query';
-
+import Query1 from '../Query/Query1';
 function Main() {
     const [data, setData] = useState([]);
     const [inputValue, setInputValue] = useState("");
     const [firstQueryMade, setFirstQueryMade] = useState(false); // State to track if the first query has been made
+    const [loading, setLoading] = useState(false); // State to track loading state
 
     const handleKeyDown = (event) => {
         if (event.key === 'Enter') {
@@ -16,6 +17,7 @@ function Main() {
     const fetchData = () => {
         const query = inputValue;
         setInputValue("");
+        setLoading(true); // Set loading to true when fetching data
         fetch("http://localhost:5000/", {
             method: 'POST',
             headers: {
@@ -27,9 +29,11 @@ function Main() {
         .then(newData => {
             setData(prevData => [...prevData, newData]);
             setFirstQueryMade(true); // Set firstQueryMade to true after the first query
+            setLoading(false); // Set loading to false after receiving data
         })
         .catch(error => {
             console.error('Error fetching data:', error);
+            setLoading(false); // Set loading to false in case of error
         });   
     };
 
@@ -41,13 +45,17 @@ function Main() {
                     <div className='min-h-[80%] flex justify-center w-full'>
                         <div className='w-[80%] h-24'>
                             <Query data={"Search Your Query "}/>
+                            {loading &&  <Query data={"Loading"}/>} 
                         </div>
                     </div>
                 ) : (
                     <div className='w-[75%] min-h-[80%] max-h-[80%] overflow-x-hidden overflow-y-auto text-white mt-4'>
+                        
                         {data.map((item, index) => (
-                            <Query key={index} data={item}/>
+                            
+                            <Query1 key={index} data={item}/>
                         ))}
+                        {loading && <Query data={"Loading"}/>} 
                     </div>
                 )
             }
@@ -67,6 +75,7 @@ function Main() {
                             onClick={fetchData}
                         />
                     </div>
+                   
                 </div>
             </div>
         </div>

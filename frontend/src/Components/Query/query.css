@@ -1,0 +1,11 @@
+.skelton{
+    animation: skelton-animaiton 1s linear infinite alternate  ;
+}
+@keyframes skelton-animaiton  {
+    0%{
+        background-color: hsl(200,20%,70%);
+    }
+   100%{
+        background-color: hsl(200,20%,95%);
+    }
+}

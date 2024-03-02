@@ -18,7 +18,7 @@ app.post("/", async (req, res) => {
         const result = await model.generateContent(query);
         const response = await result.response;
         const generatedText = response.text(); // Rename variable to avoid conflict
-        console.log(generatedText);
+       
         res.send(generatedText); // Send the generated text as response
     } catch (error) {
         console.error("Error generating content:", error);
