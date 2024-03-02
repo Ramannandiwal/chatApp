@@ -18,7 +18,7 @@ function Main() {
         const query = inputValue;
         setInputValue("");
         setLoading(true); // Set loading to true when fetching data
-        fetch("http://localhost:5000/", {
+        fetch("http://localhost:5005/", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
