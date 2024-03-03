@@ -7,7 +7,7 @@ function Main() {
     const [inputValue, setInputValue] = useState("");
     const [firstQueryMade, setFirstQueryMade] = useState(false); // State to track if the first query has been made
     const [loading, setLoading] = useState(false); // State to track loading state
-
+    const [query, setquery] = useState("")
     const handleKeyDown = (event) => {
         if (event.key === 'Enter') {
             fetchData();
@@ -16,6 +16,7 @@ function Main() {
 
     const fetchData = () => {
         const query = inputValue;
+        setquery(query);
         setInputValue("");
         setLoading(true); // Set loading to true when fetching data
         fetch("http://localhost:5005/", {
@@ -53,7 +54,7 @@ function Main() {
                         
                         {data.map((item, index) => (
                             
-                            <Query1 key={index} data={item}/>
+                            <Query1 key={index} data={item} query={query}/>
                         ))}
                         {loading && <Query data={"Loading"}/>} 
                     </div>
